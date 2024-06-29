@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback, useState } from "react";
-import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
 import "./RoomPage.css"; // Import the CSS file for styling
@@ -87,6 +86,22 @@ const RoomPage = () => {
       setRemoteStream(remoteStream[0]);
     });
   }, []);
+
+  const handleVideo = useCallback(
+    async () => {
+      console.log('handle video')
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
+      setMyStream(stream);
+    },
+    []
+  );
+
+  useEffect(() => {
+    handleVideo();
+  }, [handleVideo]);
 
   useEffect(() => {
     socket.on("user:joined", handleUserJoined);

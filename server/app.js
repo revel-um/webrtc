@@ -9,7 +9,7 @@ export default class App {
         const app = express();
 
         app.get('/health', (req, res) => {
-            res.status(200).json({message: 'Okay'});
+            res.status(200).json({ message: 'Okay' });
         })
 
         const server = app.listen(Config.config.port, () => {
@@ -20,19 +20,17 @@ export default class App {
             cors: true,
         });
 
-        const emailToSocketIdMap = new Map();
-        const socketidToEmailMap = new Map();
-
         io.on("connection", (socket) => {
             console.log(`Socket Connected`, socket.id);
             socket.on("room:join", (data) => {
                 console.log("room:join: ", data);
                 const { email, room } = data;
-                
-                UserServices.createUserRoom(email, room)
-                emailToSocketIdMap.set(email, socket.id);
-                socketidToEmailMap.set(socket.id, email);
 
+                try {
+                    UserServices.createUserRoom(email, room)
+                } catch (error) {
+                    console.error(error);
+                }
                 io.to(room).emit("user:joined", { email, id: socket.id });
                 socket.join(room);
                 io.to(socket.id).emit("room:join", data);
