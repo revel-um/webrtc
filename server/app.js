@@ -8,6 +8,10 @@ export default class App {
     static start() {
         const app = express();
 
+        app.get('/health', (req, res) => {
+            res.status(200).json({message: 'Okay'});
+        })
+
         const server = app.listen(Config.config.port, () => {
             console.log(`Express server listening on port ${Config.config.port}`);
         });

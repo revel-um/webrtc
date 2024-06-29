@@ -11,7 +11,7 @@ const RoomPage = () => {
   const [remoteStream, setRemoteStream] = useState();
 
   const handleUserJoined = useCallback(({ email, id }) => {
-    console.log({email, id})
+    console.log({ email, id })
     console.log(`Email ${email} joined room`);
     setRemoteSocketId(id);
   }, []);
@@ -120,24 +120,20 @@ const RoomPage = () => {
       <div className="streams-container">
         {remoteStream && (
           <div className="remote-stream">
-            <ReactPlayer
-              playing
-              muted
-              width="100%"
-              height="100%"
-              url={remoteStream}
-            />
+            <video autoPlay playsInline ref={(video) => {
+              if (video && remoteStream) {
+                video.srcObject = remoteStream;
+              }
+            }} />
           </div>
         )}
         {myStream && (
           <div className="my-stream">
-            <ReactPlayer
-              playing
-              muted
-              width="100%"
-              height="100%"
-              url={myStream}
-            />
+            <video autoPlay playsInline muted ref={(video) => {
+              if (video && myStream) {
+                video.srcObject = myStream;
+              }
+            }} />
           </div>
         )}
       </div>
