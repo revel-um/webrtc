@@ -1,0 +1,29 @@
+Follow given steps start this application:
+
+A) start server first
+1. open terminal at root folder
+2. cd server
+3. npm i
+4. create a .env file and paste this-->
+    PORT=8000
+    MONGO_URL=mongodb+srv://ambularmuser:ambularmPass123@ambularm.trq3xov.mongodb.net/
+5. npm start
+
+B) start react client app
+1. open terminal at root folder
+2. cd client
+3. npm i
+4. npm start
+
+C) Start video call
+1. enter any roomId in one tab
+2. enter same roomId in another tab
+3. in first tab press call
+4. in second tab press send stream
+
+Congratulation!!! All done.
+
+
+ps: I have no experience with react so please ignore react side of things
+To check for user joining the room connect to mongodb with url mongodb+srv://ambularmuser:ambularmPass123@ambularm.trq3xov.mongodb.net/
+and check for users inside GuruCool db
